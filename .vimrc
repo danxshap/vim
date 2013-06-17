@@ -3,9 +3,6 @@
 " automatically reload vimrc when it's saved
 " au BufWritePost .vimrc so ~/.vimrc
 
-" enable vim-pathogen (used for installing plugins)
-" call pathogen#infect()
-
 " BEGIN VUNDLE CONFIG
 set nocompatible               " be iMproved
 filetype off                   " required!
