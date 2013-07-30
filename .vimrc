@@ -29,6 +29,7 @@ Bundle 'ShowTrailingWhitespace'
 Bundle 'DeleteTrailingWhitespace'
 Bundle 'Rename2'
 Bundle 'kwbdi.vim'
+Bundle 'tpope/vim-markdown'
 
 filetype plugin indent on     " required!
 " END VUNDLE CONFIG
