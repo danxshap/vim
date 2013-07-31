@@ -43,6 +43,11 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 " automatically open the error window when there are errors and close it when there are none
 let g:syntastic_auto_loc_list=1
 
+" Only reload the markdown in the browser on save / a while after leaving
+" insert mode
+let g:instant_markdown_slow = 1
+filetype plugin on
+
 " syntax check with ctrl+s
 map <c-s> :SyntasticCheck<CR>
 
