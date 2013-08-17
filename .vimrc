@@ -51,6 +51,8 @@ filetype plugin on
 
 " syntax check with ctrl+s
 map <c-s> :SyntasticCheck<CR>
+let g:syntastic_python_checkers = ['pyflakes']
+
 
 " ignore syntastic errors temporarily
 map \t :SyntasticToggleMode<CR> :SyntasticToggleMode<CR>
