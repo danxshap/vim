@@ -36,6 +36,9 @@ Bundle 'Lokaltog/vim-easymotion'
 filetype plugin indent on     " required!
 " END VUNDLE CONFIG
 
+"
+" set shell=bash\ -i
+
 " disable active mode that freaks out when you try to save a file with syntax errors
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': [],
@@ -129,6 +132,9 @@ nmap \r :YRShow<CR>
 " always go directly down
 nmap j gj
 nmap k gk
+
+" press ctrl+r while selecting text to replace that text with something else
+vnoremap <C-r> "hy:%s/<C-r>h//g<left><left><left>
 
 " hide macvim toolbar
 if has("gui_running")
