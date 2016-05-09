@@ -2,6 +2,8 @@
 
 " automatically reload vimrc when it's saved
 " au BufWritePost .vimrc so ~/.vimrc
+"
+set shell=/bin/bash
 
 " BEGIN VUNDLE CONFIG
 set nocompatible               " be iMproved
@@ -16,7 +18,6 @@ Bundle 'gmarik/vundle'
 " Vundle bundles
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
 Bundle 'skammer/vim-css-color'
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdcommenter'
@@ -37,8 +38,6 @@ filetype plugin indent on     " required!
 " END VUNDLE CONFIG
 
 "
-" set shell=bash\ -i
-
 " disable active mode that freaks out when you try to save a file with syntax errors
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': [],
@@ -109,6 +108,10 @@ set foldnestmax=10
 set nofoldenable
 set foldlevel=1
 set hidden
+
+" Needed to put these somewhere else to fix bugs/conflicts with vim-fugitive (default is same directory as main file)
+set dir=~/vim_swaps
+
 colorscheme danielcolor
 let NERDTreeIgnore = ['\.pyc$']
 autocmd  BufRead,BufNewFile *.html setfiletype htmldjango
