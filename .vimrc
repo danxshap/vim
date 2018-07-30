@@ -53,8 +53,11 @@ filetype plugin on
 
 " syntax check with ctrl+s
 map <c-s> :SyntasticCheck<CR>
-let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--config=confs/linters/flake8/setup.cfg'
+let g:syntastic_javascript_jshint_args = '--config confs/linters/jshint/.jshintrc'
 
+" let g:syntastic_debug = 3
 
 " ignore syntastic errors temporarily
 map \t :SyntasticToggleMode<CR> :SyntasticToggleMode<CR>
@@ -102,7 +105,7 @@ set smarttab
 set expandtab
 set wildmode=longest,list,full
 set wildmenu
-set wildignore=*.pyc,.*
+set wildignore=*.pyc,.*,/static/*
 set virtualedit=all
 set foldnestmax=10
 set nofoldenable
@@ -146,6 +149,7 @@ endif
 
 " in ctrlp, set working directory to closest to .git
 let g:ctrlp_working_path_mode=2
+" let g:ctrlp_custom_ignore = { 'dir': 'static' }
 
 " map some useful nerdtree commands
 noremap <c-n> :NERDTreeToggle<CR>
@@ -185,3 +189,9 @@ endfunction
 " type Sc after highlighting a block to add comment in django templates
 " NOTE: 99 is the ascii code for "c"
 let b:surround_99 = "{% comment %}\r{% endcomment %}"
+
+" vim-plug
+" call plug#begin('~/.vim/plugged')
+"
+"
+" call plug#end()
