@@ -54,8 +54,6 @@ filetype plugin on
 " syntax check with ctrl+s
 map <c-s> :SyntasticCheck<CR>
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args = '--config=confs/linters/flake8/setup.cfg'
-let g:syntastic_javascript_jshint_args = '--config confs/linters/jshint/.jshintrc'
 
 " let g:syntastic_debug = 3
 
