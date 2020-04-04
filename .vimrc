@@ -1,4 +1,4 @@
-" this is my vimrc
+" this is my vimrc sup
 
 " automatically reload vimrc when it's saved
 " au BufWritePost .vimrc so ~/.vimrc
@@ -20,6 +20,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-fugitive'
 Bundle 'skammer/vim-css-color'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-rhubarb'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -103,7 +104,7 @@ set smarttab
 set expandtab
 set wildmode=longest,list,full
 set wildmenu
-set wildignore=*.pyc,.*,/static/*
+set wildignore=*.pyc,.*,/static/*,*/node_modules/*
 set virtualedit=all
 set foldnestmax=10
 set nofoldenable
@@ -175,7 +176,7 @@ map ) :TlistToggle<CR>
 nnoremap <c-i> :call InsertDebugTrace()<CR>
 function! InsertDebugTrace()
     if (&ft == 'python')
-        normal! Oimport ipdb; ipdb.set_trace()
+        normal! Oimport ipdb; ipdb.set_trace(context=30)
     elseif (&ft == 'javascript')
         normal! Odebugger;
     endif
