@@ -42,8 +42,9 @@ set guioptions=r
 let g:DeleteTrailingWhitespace_Action = 'delete'
 let g:DeleteTrailingWhitespace = 1
 
-" Shortcut for git status via fugitive
+" Shortcut for 'git status' and 'git add' via fugitive
 noremap \s :Gstatus<CR>
+noremap \a :Gwrite<CR>
 
 " Disable YouCompleteMe default mapping for \d and make our shortcut for Gdiff
 let g:ycm_key_detailed_diagnostics = ''
