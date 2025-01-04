@@ -12,20 +12,23 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins managed by Vundle
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rhubarb'
-Bundle 'DeleteTrailingWhitespace'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'mileszs/ack.vim'
-Bundle 'ap/vim-css-color'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'ycm-core/YouCompleteMe'
-Bundle 'vim-syntastic/syntastic'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'DeleteTrailingWhitespace'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'mileszs/ack.vim'
+Plugin 'ap/vim-css-color'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'ycm-core/YouCompleteMe'
+Plugin 'vim-syntastic/syntastic'
 
 " Allows you to type \bd to delete current buffer without closing window
-Bundle 'kwbdi.vim'
+Plugin 'kwbdi.vim'
+
+Plugin 'suan/vim-instant-markdown', {'rtp': 'after'}
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -43,7 +46,7 @@ let g:DeleteTrailingWhitespace_Action = 'delete'
 let g:DeleteTrailingWhitespace = 1
 
 " Shortcut for 'git status' and 'git add' via fugitive
-noremap \s :Gstatus<CR>
+noremap \s :Git<CR>
 noremap \a :Gwrite<CR>
 
 " Disable YouCompleteMe default mapping for \d and make our shortcut for Gdiff
@@ -62,6 +65,7 @@ let g:ctrlp_working_path_mode=2
 
 " Nerdtree
 let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeShowHidden=1
 noremap <c-n> :NERDTreeToggle<CR>
 noremap <c-l> :NERDTreeFind<CR>
 
@@ -90,6 +94,9 @@ let g:syntastic_auto_loc_list=1
 " Press ctrl+s to run syntax check
 map <c-s> :SyntasticCheck<CR>
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exe='$(npm bin)/eslint'
+let g:syntastic_debug_file = "~/syntastic.log"
 
 " Press \t to ignore syntastic errors temporarily
 map \t :SyntasticToggleMode<CR> :SyntasticToggleMode<CR>
@@ -156,8 +163,53 @@ endfunction
 " ============ /Default vim features ============
 
 
+function! DiffSelectionWithClipboard() range
+  " 1) Yank the visually selected text into the unnamed register
+  silent! normal! gv"xy
+
+  " 2) Open a new tab (starts with a single window)
+  tabnew
+
+  " 3) Split the tab vertically so we have a left and a right window
+  vsplit
+
+  " 4) Move focus to the LEFT window
+  wincmd h
+  " Create a scratch buffer for your selected text
+  enew
+  setlocal buftype=nofile
+  setlocal bufhidden=wipe
+  setlocal noswapfile
+  file SelectedTextDiff
+  " Paste the visually selected text
+  normal! "xp
+  diffthis
+
+  " 5) Move focus to the RIGHT window
+  wincmd l
+  " Create another scratch buffer for your clipboard text
+  enew
+  setlocal buftype=nofile
+  setlocal bufhidden=wipe
+  setlocal noswapfile
+  file ClipboardDiff
+  " Paste from the system clipboard (the '+' register on macOS/unix)
+  normal! "+p
+  diffthis
+endfunction
+
+" Visually select text and then press ,d to see the diff moving from that
+" selected text to whatever is in the clipboard
+xnoremap \D :<C-u>call DiffSelectionWithClipboard()<CR><CR>
+
+" Shortcut for closing the current tab, such as after running the diff command
+" above which opens the diff in a new tab
+noremap \f :tabc<CR>
 
 " ============ Other notes ============
 " To refresh syntax highlighting try scrolling around a little and then :syn sync fromstart
 
 " ============ /Other notes ============
+"
+
+set pythonthreedll=/usr/local/bin/python3
